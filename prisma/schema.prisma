@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(uuid())
+  name         String
+  email        String            @unique
+  password     String
+  access       Access?           @relation(fields: [accessId], references: [id])
+  accessId     String?
+  RefreshToken RefreshToken?
+  location     trainingLocation? @relation(fields: [locationId], references: [id])
+  locationId   String?
+  checkIns     UserCkeckin[]
+
+  @@map("users")
+}
+
+model UserCkeckin {
+  id             String      @id @default(uuid())
+  user           User        @relation(fields: [userId], references: [id])
+  userId         String
+  checkinClass   ckeckinList @relation(fields: [checkinClassId], references: [id])
+  checkinClassId String
+}
+
+model Access {
+  id         String   @id @default(uuid())
+  name       String
+  user       User[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("access")
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String @unique
+
+  @@map("refresh_token")
+}
+
+model trainingLocation {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  logo    String
+  active  Boolean
+  users   User[]
+  workout workout[]
+
+  @@map("training_location")
+}
+
+model workout {
+  id         String           @id @default(uuid())
+  data       DateTime
+  location   trainingLocation @relation(fields: [locationId], references: [id])
+  locationId String
+  checkin    checkinTimes[]
+
+  @@map("workouts")
+}
+
+model checkinTimes {
+  id          String       @id @default(uuid())
+  workout     workout      @relation(fields: [workoutId], references: [id])
+  workoutId   String
+  ckeckinList ckeckinList?
+
+  @@map("checkin_Times")
+}
+
+model ckeckinList {
+  id            String        @id @default(uuid())
+  checkinTime   checkinTimes  @relation(fields: [checkinTimeId], references: [id])
+  checkinTimeId String        @unique
+  limit         Int
+  UserCkeckin   UserCkeckin[]
+
+  @@map("checkin_List")
+}
