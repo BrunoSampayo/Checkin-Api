@@ -1,9 +1,15 @@
 import { Request,Response } from "express"
+import { GrantAccessLeveltoUserUseCase } from "./GrantAccessLeveltoUserUseCase";
 
 
 class GrantAccessLeveltoUserController {
     async handle(req: Request, res: Response){
-        const{user,acessLevel}= req.body;
+        const{userId,accessLevelId}= req.body;
+
+        const grantAccessLeveltoUserUseCase = new GrantAccessLeveltoUserUseCase();
+        const updateAccessLevel = await grantAccessLeveltoUserUseCase.execute(userId,accessLevelId);
+
+        return res.json(updateAccessLevel);
     }
 }
 
