@@ -1,28 +1,21 @@
-import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
-import dotenv from "dotenv"
 
-dotenv.config()
-
-export function ensureAuthenticated(request: Request, response: Response, next: NextFunction) {
-    const authToken = request.headers.authorization;
+import {Request,Response, NextFunction} from 'express'
+import passport from '../config/passport'
 
 
-    if (!authToken) {
-        return response.status(401).json({
-            error:"Token is required"
-        })
-    }
 
-    const [, token] = authToken.split(" ")
 
-    try {
-        verify(token, process.env.TOKEN_KEY as string);
-        return next()
-    } catch (err) {
-        return response.status(401).json({
-            error:"Token is invalid"
-        })
-    }
-
-}
+export const ensureAuthenticated = (req:Request, res:Response, next:NextFunction) => {
+    passport.authenticate('jwt', { session: false }, (err:any, user:any, info:any) => {
+      if (err) {
+        return next(err);
+      }
+  
+      if (!user) {
+        return res.status(401).json({ message: 'Não autorizado' });
+      }
+  
+      req.user = user;
+      next();
+    })(req, res, next);
+  };

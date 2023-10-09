@@ -22,6 +22,7 @@ class RefreshTokenUserUseCase {
         const refreshTokenExpired = dayjs().isAfter(dayjs.unix(refreshToken.expiresIn));
 
         const generateTokenProvider = new GenerateTokenProvider();
+        
         const token = await generateTokenProvider.execute(refreshToken.userId)
 
         if(refreshTokenExpired) {

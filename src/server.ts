@@ -4,16 +4,20 @@ import dotenv from 'dotenv'
 import { router } from './routes/routes';
 import path = require('path');
 import errorHandler from "./middlewares/error";
+import passport = require("passport");
 
 dotenv.config()
 
 const app = express();
+
+app.use(passport.initialize());
 
 app.use(express.static(path.join(__dirname,'../public')));
 app.use(express.urlencoded({extended:true}));
 
 
 app.use(router)
+
 
 
 //app.use((error:Error,request:Request, response:Response, next:NextFunction)=>{return response.status(500).json({message:error.message})})

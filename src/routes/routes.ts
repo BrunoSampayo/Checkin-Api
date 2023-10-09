@@ -23,17 +23,17 @@ router.get("/admin/get-all-users", getAllUsersController.handle)
 router.post("/refresh-token", refreshTokenUserController.handle)
 
 router.get('/courses', ensureAuthenticated, (request, response) => {
-    return response.json([
+    return (response.json([
         { id: 1, name: "Nodejs" },
         { id: 2, name: "TS" },
         { id: 3, name: "Phyton" },
         { id: 4, name: "Html" },
         { id: 5, name: "Css3" },
-    ])
+    ]))
 })
 
 
 
 
-router.use("/access",accessRouter)
+router.use("/access",ensureAuthenticated,accessRouter)
 export { router }

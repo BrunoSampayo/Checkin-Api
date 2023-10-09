@@ -5,12 +5,13 @@ dotenv.config()
 
 class GenerateTokenProvider {
 
-    async execute(userId:string){
+    async execute(userId:string ,){
         const token = sign({},process.env.TOKEN_KEY as string,{
             subject: userId,
             expiresIn: "20s"
         })
         return token
+
     }
 }
 
