@@ -14,7 +14,9 @@ type IRequest = {
 dotenv.config()
 class AuthenticateUserUseCase {
     async execute({email, password}:IRequest){
-
+        if(!email || !password){
+            throw new Error("Email or password not send.401");
+        }
         //Verificar se usuario existe
         const userAlreadyExist = await client.user.findFirst({
             where:{
@@ -22,7 +24,7 @@ class AuthenticateUserUseCase {
             }
         })
         if(!userAlreadyExist){
-            throw new Error("User or password incorrect.401");
+            throw new Error("Email or password incorrect.401");
         }
 
 
