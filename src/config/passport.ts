@@ -1,16 +1,6 @@
-type user= {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  accessId: string | null;
-  locationId: string | null;
-} 
-
-
 import passport from "passport";
 import dotenv from 'dotenv';
-
+import { User } from "@prisma/client";
 import { Strategy as JWTStrategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 import { client } from "../prisma/client";
 
@@ -29,8 +19,7 @@ passport.use(new JWTStrategy(options, async (payload, done) => {
 
     
     if (userData) {
-      const {password,email,...user}:Partial<user>=userData;
-      
+      const {password,email,...user}:Partial<User>=userData;
       return done(null, user);
     }
 
