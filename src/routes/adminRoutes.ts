@@ -15,11 +15,13 @@ const getAllAccessController = new GetAllAccessController();
 const grantAccessLeveltoUserController = new GrantAccessLeveltoUserController();
 const getAllUsersController = new GetAllUsersController();
 
-accessRouter.post("/accessCreate", createAccessController.handle);
-accessRouter.get("/get-all-access", getAllAccessController.handle);
-accessRouter.post("/deleteAccess", deleteAccessController.handle);
-accessRouter.post("/grant-to-userAccess",grantAccessLeveltoUserController.handle)
-accessRouter.get("/get-all-users", getAllUsersController.handle)
+accessRouter.post("/access", createAccessController.handle); // criar nivel de acesso
+accessRouter.get("/access", getAllAccessController.handle); // ver todos niveis de acesso
+accessRouter.delete("/access", deleteAccessController.handle); // deletar um nivel de acesso
+
+accessRouter.post("/user-access",grantAccessLeveltoUserController.handle) // atribuir nivel de accesso a um usuario
+
+accessRouter.get("/users", getAllUsersController.handle) //retornar todos usuarios
 
 
 export default accessRouter;
