@@ -1,9 +1,9 @@
 import { compare } from "bcryptjs";
-import { client } from "../../prisma/client";
+import { client } from "../../../prisma/client";
 import { sign } from "jsonwebtoken";
 import dotenv from 'dotenv'
-import { GenerateRefreshToken } from "../../provider/GenerateRefreshToken";
-import { GenerateTokenProvider } from "../../provider/GenerateTokenProvider";
+import { GenerateRefreshToken } from "../../../provider/GenerateRefreshToken";
+import { GenerateTokenProvider } from "../../../provider/GenerateTokenProvider";
 
 
 type IRequest = {

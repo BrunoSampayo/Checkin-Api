@@ -1,5 +1,5 @@
 
-import { client } from "../../prisma/client"
+import { client } from "../../../prisma/client"
 
 class GrantAccessLeveltoUserUseCase {
     async execute(  user:string, accessLevel:string) {

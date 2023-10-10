@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { CreateUserController } from "../useCases/createUser/CreateUserController";
-import { AuthenticateUserController } from "../useCases/authenticateUser/AuthenticateUserUseController";
+import { CreateUserController } from "../useCases/User/createUser/CreateUserController";
+import { AuthenticateUserController } from "../useCases/User/authenticateUser/AuthenticateUserUseController";
 import { RefreshTokenUserController } from "../useCases/refreshTokenUser/RefreshTokenUserController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdminstratorAuth } from "../middlewares/ensureAdminstratorAuth";
