@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 class GenerateRefreshToken{
 
     async execute(userId: string){
-        const expiresIn = dayjs().add(15,"second").unix()
+        const expiresIn = dayjs().add(1,"day").unix()
         const generateRefreshToken = await client.refreshToken.create({
             data:{
                 userId,
