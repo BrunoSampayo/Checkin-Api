@@ -10,7 +10,7 @@ class CreateLocationController {
         if (image !== undefined) {
 
             const uploadFile = new UploadFileProvider()
-            let pathName = await uploadFile.execute(image)
+            let pathName = await uploadFile.execute(image,"./public/media/")
 
 
         }
